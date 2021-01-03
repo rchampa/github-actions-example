@@ -9,8 +9,8 @@ jobs:
   PlayStore:
     runs-on: ubuntu-latest
     steps:
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Checkout the code
+        uses: actions/checkout@v2
       - name: Build Release AAB
         id: buildRelease
         run: ./gradlew bundleRelease
