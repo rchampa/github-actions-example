@@ -6,8 +6,35 @@ on:
     types:
       - completed
 jobs:
-  hello:
+  PlayStore:
     runs-on: ubuntu-latest
     steps:
       - name: Run a one-line script
         run: echo Hello, world!
+      - name: Build Release AAB
+        id: buildRelease
+        run: ./gradlew bundleRelease
+      - name: Sign AAB
+        id: sign
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: app/build/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.KEY_STORE_FILE }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+#      - name: Upload AAB
+#        id: uploadArtifact
+#        uses: actions/upload-artifact@v1
+#        with:
+#          name: app
+#          path: app/build/outputs/bundle/release/app-release.aab
+      - name: Deploy to Play Store (Alpha)
+        id: deploy
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJson: ${{ SERVICE_ACCOUNT_JSON }}
+          packageName: es.algoritmo.githubactions
+          releaseFile: app/build/outputs/bundle/release/app-release.aab
+          track: alpha
+          whatsNewDirectory: whatsnew/
