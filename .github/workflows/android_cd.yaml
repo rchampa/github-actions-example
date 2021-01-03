@@ -23,8 +23,6 @@ jobs:
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
-      - name: check de aab file
-          run: ls app/build/outputs/bundle/release
 #      - name: Upload AAB
 #        id: uploadArtifact
 #        uses: actions/upload-artifact@v1
