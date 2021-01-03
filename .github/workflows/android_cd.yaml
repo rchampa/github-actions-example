@@ -15,7 +15,7 @@ jobs:
         id: buildRelease
         run: ./gradlew bundleRelease
       - name: Sign AAB
-        id: sign
+        id: sign_app
         uses: r0adkll/sign-android-release@v1
         with:
           releaseDirectory: app/build/outputs/bundle/release
@@ -23,6 +23,8 @@ jobs:
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
+      - name: check de aab file
+          run: ls app/build/outputs/bundle/release
 #      - name: Upload AAB
 #        id: uploadArtifact
 #        uses: actions/upload-artifact@v1
@@ -35,6 +37,6 @@ jobs:
         with:
           serviceAccountJson: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: es.algoritmo.githubactions
-          releaseFile: app/build/outputs/bundle/release/app-release.aab
+          releaseFiles: ${{steps.sign_app.outputs.signedReleaseFile}}
           track: alpha
           whatsNewDirectory: whatsnew/
