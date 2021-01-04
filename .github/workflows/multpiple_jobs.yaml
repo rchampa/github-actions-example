@@ -40,8 +40,8 @@ jobs:
           name: artifact_job2
       - name: duplicate files
         run: |
-          mkdir project,
-          cp myArtifact.txt project/myArtifact.txt,
+          mkdir project
+          cp myArtifact.txt project/myArtifact.txt
           cp myArtifact.txt project/myArtifact_copy.txt
       - name: Upload the zipped artifact
         uses: actions/upload-artifact@v2
