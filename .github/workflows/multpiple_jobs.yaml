@@ -8,12 +8,12 @@ jobs:
   firstJob:
     runs-on: ubuntu-latest
     steps:
-    - name: artifact1
+    - name: Create artifact
       run: echo "Hello, I'm produced by firstJob" > myArtifact.txt
     - name: Upload the artifact
       uses: actions/upload-artifact@v2
       with:
-        name: artifact_job1.txt
+        name: artifact_job1
         path: myArtifact.txt
   secondJob:
     needs: firstJob
@@ -22,9 +22,11 @@ jobs:
       - name: Retrieve saved Artifact
         uses: actions/download-artifact@v2
         with:
-          name: artifact_job1.txt
-          path: artifact.txt
-      - name: Build the app
+          name: artifact_job1
+          path: artifact
+      - name: Unzip artifact
+        run: unzip artifact.zip
+      - name: Modify the artifact
         run: echo "Hello, I have been changed by secondJob" >> artifact.txt
       - name: Upload the artifact
         uses: actions/upload-artifact@v2
