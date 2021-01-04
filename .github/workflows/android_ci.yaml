@@ -1,6 +1,9 @@
 name: Android CI
-on: [pull_request, push]
+on: #[pull_request, push]
   push:
+    branches-ignore:
+      - feature/test
+  pull_request:
     branches-ignore:
       - feature/test
 jobs:
