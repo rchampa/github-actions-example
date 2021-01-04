@@ -23,14 +23,13 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: artifact_job1
-          path: artifact
       - name: Modify the artifact
-        run: echo "Hello, I have been changed by secondJob" >> artifact.txt
+        run: echo "Hello, I have been changed by secondJob" >>  myArtifact.txt
       - name: Upload the artifact
         uses: actions/upload-artifact@v2
         with:
-          name: artifact_job2.txt
-          path: artifact.txt
+          name: artifact_job2
+          path: myArtifact.txt
   thirdJob:
     needs: secondJob
     runs-on: ubuntu-latest
@@ -39,11 +38,13 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: artifact_job2
-          path: artifact.txt
-      - name: zip artifact
-        run: zip artifact.zip artifact.txt
+      - name: duplicate files
+        run: |
+          mkdir project,
+          cp myArtifact.txt project/myArtifact.txt,
+          cp myArtifact.txt project/myArtifact_copy.txt
       - name: Upload the zipped artifact
         uses: actions/upload-artifact@v2
         with:
-          name: artifact.zip
-          path: artifact.zip
+          name: final_artifact
+          path: project
