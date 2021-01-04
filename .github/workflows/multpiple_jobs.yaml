@@ -43,7 +43,7 @@ jobs:
           mkdir project
           cp myArtifact.txt project/myArtifact.txt
           cp myArtifact.txt project/myArtifact_copy.txt
-      - name: Upload the zipped artifact
+      - name: Upload the project artifact
         uses: actions/upload-artifact@v2
         with:
           name: final_artifact
