@@ -14,7 +14,7 @@ jobs:
     - name: Upload the artifact
       uses: actions/upload-artifact@v2
       with:
-        name: artifact1.txt
+        name: artifact_job1.txt
         path: myArtifact.txt
   secondJob:
     needs: firstJob
@@ -23,14 +23,14 @@ jobs:
       - name: Retrieve saved Artifact
         uses: actions/download-artifact@v2
         with:
-          name: artifact1.txt
+          name: artifact_job1.txt
           path: artifact.txt
       - name: Build the app
         run: echo "Hello, I have been changed by secondJob" >> artifact.txt
       - name: Upload the artifact
         uses: actions/upload-artifact@v2
         with:
-          name: artifact2.txt
+          name: artifact_job2.txt
           path: artifact.txt
   thirdJob:
     needs: secondJob
@@ -39,8 +39,12 @@ jobs:
       - name: Retrieve saved Artifact
         uses: actions/download-artifact@v2
         with:
-          name: Download the artifact1
+          name: artifact_job2
           path: artifact.txt
-      - name: Unit tests
-        id: tests
-        run: ./gradlew test
+      - name: zip artifact
+        run: zip artifact.zip artifact.txt
+      - name: Upload the zipped artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifact.zip
+          path: artifact.zip
