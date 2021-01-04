@@ -13,7 +13,7 @@ jobs:
         run: ./gradlew test
   test:
     runs-on: ubuntu-latest
-      steps:
-        - name: Unit tests
-          id: tests
-          run: ./gradlew test
+    steps:
+      - name: Unit tests
+        id: tests
+        run: ./gradlew test
