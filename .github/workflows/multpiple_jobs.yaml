@@ -25,7 +25,7 @@ jobs:
           name: artifact_job1
           path: artifact
       - name: Unzip artifact
-        run: unzip artifact.zip
+        run: unzip artifact
       - name: Modify the artifact
         run: echo "Hello, I have been changed by secondJob" >> artifact.txt
       - name: Upload the artifact
