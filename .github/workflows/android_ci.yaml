@@ -10,6 +10,8 @@ jobs:
     needs: clone
     runs-on: ubuntu-latest
     steps:
+      - name: Run a one-line script
+        run: ls -la
       - name: Build the app
         run: ./gradlew build
   test:
