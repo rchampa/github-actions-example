@@ -1,0 +1,46 @@
+name: Multiple dependant jobs example
+on:
+  push:
+    branches: [ feature/multiplejobs ]
+  pull_request:
+    branches: [ feature/multiplejobs ]
+jobs:
+  firstJob:
+    runs-on: ubuntu-latest
+    steps:
+    - name: artifact1
+      run: echo "Hello, I'm produced by firstJob" > myArtifact.txt
+      uses: actions/checkout@v2
+    - name: Upload the artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: artifact1.txt
+        path: myArtifact.txt
+  secondJob:
+    needs: firstJob
+    runs-on: ubuntu-latest
+    steps:
+      - name: Retrieve saved Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: artifact1.txt
+          path: artifact.txt
+      - name: Build the app
+        run: echo "Hello, I have been changed by secondJob" >> artifact.txt
+      - name: Upload the artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifact2.txt
+          path: artifact.txt
+  thirdJob:
+    needs: secondJob
+    runs-on: ubuntu-latest
+    steps:
+      - name: Retrieve saved Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: Download the artifact1
+          path: artifact.txt
+      - name: Unit tests
+        id: tests
+        run: ./gradlew test
