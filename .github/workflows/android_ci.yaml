@@ -1,17 +1,19 @@
 name: Android CI
 on: [pull_request, push]
 jobs:
-  build:
+  clone:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the code
-        uses: actions/checkout@v2
+    - name: Checkout the code
+      uses: actions/checkout@v2
+  build:
+    needs: clone
+    runs-on: ubuntu-latest
+    steps:
       - name: Build the app
         run: ./gradlew build
-      - name: Unit tests
-        id: tests
-        run: ./gradlew test
   test:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Unit tests
