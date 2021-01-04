@@ -10,7 +10,6 @@ jobs:
     steps:
     - name: artifact1
       run: echo "Hello, I'm produced by firstJob" > myArtifact.txt
-      uses: actions/checkout@v2
     - name: Upload the artifact
       uses: actions/upload-artifact@v2
       with:
