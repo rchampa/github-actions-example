@@ -23,9 +23,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: artifact_job1
-#          path: artifact
+          path: artifact
       - name: Modify the artifact
-        run: echo "Hello, I have been changed by secondJob" >> artifact_job1.txt
+        run: echo "Hello, I have been changed by secondJob" >> artifact.txt
       - name: Upload the artifact
         uses: actions/upload-artifact@v2
         with:
