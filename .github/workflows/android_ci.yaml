@@ -1,5 +1,8 @@
 name: Android CI
 on: [pull_request, push]
+  push:
+    branches-ignore:
+      - feature/test
 jobs:
   build:
     runs-on: ubuntu-latest
