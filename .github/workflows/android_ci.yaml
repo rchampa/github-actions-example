@@ -14,11 +14,11 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
-      - name: Build the app
-        run: ./gradlew buildDebug
-      - name: Unit tests
-        id: unitTests
-        run: ./gradlew testDebug
+#      - name: Build the app
+#        run: ./gradlew buildDebug
+#      - name: Unit tests
+#        id: unitTests
+#        run: ./gradlew testDebug
 #      - name: Instrumentation tests
 #        id: instrumentationTests
 #        run: ./gradlew connectedDebugAndroidTest
