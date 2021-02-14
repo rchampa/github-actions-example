@@ -10,7 +10,7 @@ on: #[pull_request, push]
       - 'feature/*' # matches every branch that begins with 'feature/'
 jobs:
   android-ci-job:
-    runs-on: macos-latest
+    runs-on: macos-latest # macos is needed for instrumentation tests
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
@@ -22,10 +22,10 @@ jobs:
 #      - name: Instrumentation tests
 #        id: instrumentationTests
 #        run: ./gradlew connectedDebugAndroidTest
-      - name: run instrumentation tests
+      - name: Instrumentation tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 30
+          api-level: 29
           target: google_apis
           arch: x86
           profile: Nexus 6

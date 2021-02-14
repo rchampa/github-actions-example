@@ -2,7 +2,12 @@ name: Android CD
 on:
   workflow_run:
     workflows: ["Android CI"]
-    branches: [main]
+    push:
+      branches:
+        - 'master'
+      pull_request:
+        branches:
+          - 'master'
     types:
       - completed
 jobs:
@@ -27,7 +32,7 @@ jobs:
 #        id: uploadArtifact
 #        uses: actions/upload-artifact@v1
 #        with:
-#          name: app
+#          name: bundle
 #          path: app/build/outputs/bundle/release/app-release.aab
       - name: Deploy to Play Store (Alpha)
         id: deploy
