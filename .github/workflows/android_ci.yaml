@@ -9,7 +9,7 @@ on: #[pull_request, push]
       - 'develop'   # matches develop
       - 'feature/*' # matches every branch that begins with 'feature/'
 jobs:
-  build:
+  android-ci-job:
     runs-on: macos-latest
     steps:
       - name: Checkout the code
@@ -26,6 +26,7 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 30
+          target: google_apis
           arch: x86
           profile: Nexus 6
           avd-name: test
