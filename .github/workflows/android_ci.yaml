@@ -1,14 +1,16 @@
 name: Android CI
 on: #[pull_request, push]
   push:
-    branches-ignore:
-      - feature/test
+    branches:
+      - 'develop'   # matches develop
+      - 'feature/*' # matches every branch that begins with 'feature/'
   pull_request:
-    branches-ignore:
-      - feature/test
+    branches:
+      - 'develop'   # matches develop
+      - 'feature/*' # matches every branch that begins with 'feature/'
 jobs:
   build:
-    runs-on: macOS-latest
+    runs-on: macos-latest
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
@@ -17,6 +19,11 @@ jobs:
       - name: Unit tests
         id: unitTests
         run: ./gradlew testDebug
-      - name: Instrumented tests
-        id: instrumentedTests
-        run: ./gradlew connectedDebugAndroidTest
+#      - name: Instrumentation tests
+#        id: instrumentationTests
+#        run: ./gradlew connectedDebugAndroidTest
+      - name: run instrumentation tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          script: ./gradlew connectedCheck
