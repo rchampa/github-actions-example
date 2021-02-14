@@ -15,8 +15,8 @@ jobs:
       - name: Build the app
         run: ./gradlew buildDebug
       - name: Unit tests
-        id: tests
+        id: unitTests
         run: ./gradlew testDebug
       - name: Instrumented tests
-        id: tests
+        id: instrumentedTests
         run: ./gradlew connectedDebugAndroidTest
