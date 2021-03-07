@@ -21,6 +21,7 @@ jobs:
       - name: Set ENV VAR
         env:
           TAG_NAME: ${{ ./gradlew :app:printVersionName -q }}
+        run: echo $TAG_NAME
 #          TAG_NAME="$(./gradlew :app:printVersionName -q)"
 #          echo $TAG_NAME
       - name: Push new Tag
