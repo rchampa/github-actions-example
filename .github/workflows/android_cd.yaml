@@ -17,7 +17,9 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v2
       - name: Master branch
-        run: git checkout -t origin/master
+        run: |
+          git fetch
+          git checkout -t origin/master
       - name: Increment Version Code
         run: ./gradlew incrementVersionCode
       - name: Push new Tag
