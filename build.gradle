@@ -1,6 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = "1.4.21"
+    ext.kotlin_version = "1.4.31"
     repositories {
         google()
         jcenter()
@@ -23,4 +23,20 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+task incrementVersionCode {
+    doLast {
+        def appModulePath = "app/build.gradle"
+        def buildFile = new File(appModulePath)
+        def versionCodeLine = buildFile.readLines().find({ line -> line ==~ /.+(versionCode [0-9]+)/})
+        def versionCode = versionCodeLine.trim().split(" ")[1].toInteger()
+        println("Current Version: $versionCode")
+        def newVersionCode = versionCode+1
+        def oldVersionCodeLine = "versionCode $versionCode"
+        def newVersionCodeLine = "versionCode $newVersionCode"
+        def updatedGradleFile = buildFile.text.replaceAll(oldVersionCodeLine, newVersionCodeLine)
+        buildFile.text = updatedGradleFile
+        println("New Version: $newVersionCode")
+    }
 }

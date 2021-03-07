@@ -10,26 +10,45 @@ on: #[pull_request, push]
       - 'feature/*' # matches every branch that begins with 'feature/'
 jobs:
   android-ci-job:
-    runs-on: macos-latest # macos is needed for instrumentation tests
+    runs-on: ubuntu-latest # macos is needed for instrumentation tests
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
-#      - name: Build the app
-#        run: ./gradlew buildDebug
-#      - name: Unit tests
-#        id: unitTests
-#        run: ./gradlew testDebug
+
+      - name: Build the app
+        run: ./gradlew buildDebug
+
+      - name: Unit tests
+        id: unitTests
+        run: ./gradlew testDebug
+
 #      - name: Instrumentation tests
 #        id: instrumentationTests
 #        run: ./gradlew connectedDebugAndroidTest
-      - name: Instrumentation tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          target: google_apis
-          arch: x86
-          profile: Nexus 6
-          avd-name: test
-          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none
-          disable-animations: true
-          script: ./gradlew connectedCheck
+
+#      - name: Instrumentation tests
+#        uses: reactivecircus/android-emulator-runner@v2 # https://github.com/ReactiveCircus/android-emulator-runner
+#        with:
+#          api-level: 29
+#          target: google_apis
+#          arch: x86
+#          profile: Nexus 6
+#          avd-name: test
+#          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none
+#          disable-animations: true
+#          script: ./gradlew connectedCheck
+
+#      - name: SonarQube Analysis
+#        run: ./gradlew jacocoTestReport
+
+#      - name: Kiuwan Baseline Analysis # https://github.com/marketplace/actions/kiuwan-baseline-analysis
+#        uses: lsacera/KiuwanBaselineAction@v1.0
+#        with:
+#          # Name of Kiuwan project
+#          project: Personalblog
+#          # Label for the analysis
+#          label: version
+#          # Username for kiuwan platform
+#          userid: ${{ secrets.KIUWAN_USER }}
+#          # Password for kiuwan platform
+#          password: ${{ secrets.KIUWAN_PASS }}
