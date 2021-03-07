@@ -17,10 +17,12 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v2
       - name: Increment Version Code
-        run: |
-          ./gradlew incrementVersionCode
-          TAG_NAME="$(./gradlew :app:printVersionName -q)"
-          echo $TAG_NAME
+        run: ./gradlew incrementVersionCode
+      - name: Set ENV VAR
+        env:
+          TAG_NAME: ${{ ./gradlew :app:printVersionName -q }}
+#          TAG_NAME="$(./gradlew :app:printVersionName -q)"
+#          echo $TAG_NAME
       - name: Push new Tag
         run: |
           git config --global user.email "actions@github.com"
