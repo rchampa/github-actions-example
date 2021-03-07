@@ -19,7 +19,7 @@ jobs:
       - name: Increment Version Code
         run: |
           ./gradlew incrementVersionCode
-          ./gradlew :app:printVersionName -q >> $TAG_NAME
+          TAG_NAME="$(./gradlew :app:printVersionName -q)"
       - name: Build Release AAB
         id: buildRelease
         run: ./gradlew bundleRelease
