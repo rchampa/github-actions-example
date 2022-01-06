@@ -22,14 +22,17 @@ jobs:
         id: unitTests
         run: ./gradlew testDebug
 
-      - name: Instrumentation tests
-        id: instrumentationTests
-        run: ./gradlew connectedDebugAndroidTest
-
 #      - name: Instrumentation tests
-#        uses: reactivecircus/android-emulator-runner@v2 # https://github.com/ReactiveCircus/android-emulator-runner
+#        id: instrumentationTests
+#        run: ./gradlew connectedDebugAndroidTest
+
+      - name: Instrumentation tests
+        uses: reactivecircus/android-emulator-runner@v2 # https://github.com/ReactiveCircus/android-emulator-runner
+        with:
+          api-level: 31
+          script: ./gradlew connectedCheck
 #        with:
-#          api-level: 29
+#          api-level: 31
 #          target: google_apis
 #          arch: x86
 #          profile: Nexus 6
