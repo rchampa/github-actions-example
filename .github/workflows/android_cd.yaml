@@ -14,8 +14,8 @@ jobs:
         run: |
           git branch
           git checkout master
-#      - name: Increment Version Code
-#        run: ./gradlew incrementVersionCode
+      - name: Increment Version Code
+        run: ./gradlew incrementVersionCode
       - name: Build Release AAB
         id: buildRelease
         run: ./gradlew bundleRelease
