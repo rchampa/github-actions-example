@@ -22,9 +22,9 @@ jobs:
         id: unitTests
         run: ./gradlew testDebug
 
-#      - name: Instrumentation tests
-#        id: instrumentationTests
-#        run: ./gradlew connectedDebugAndroidTest
+      - name: Instrumentation tests
+        id: instrumentationTests
+        run: ./gradlew connectedDebugAndroidTest
 
 #      - name: Instrumentation tests
 #        uses: reactivecircus/android-emulator-runner@v2 # https://github.com/ReactiveCircus/android-emulator-runner
