@@ -26,19 +26,11 @@ jobs:
 #        id: instrumentationTests
 #        run: ./gradlew connectedDebugAndroidTest
 
-      - name: Instrumentation tests
-        uses: reactivecircus/android-emulator-runner@v2 # https://github.com/ReactiveCircus/android-emulator-runner
-        with:
-          api-level: 31
-          script: ./gradlew connectedCheck
+#      - name: Instrumentation tests
+#        uses: reactivecircus/android-emulator-runner@v2 # https://github.com/ReactiveCircus/android-emulator-runner
 #        with:
-#          api-level: 31
+#          api-level: 29
 #          target: google_apis
-#          arch: x86
-#          profile: Nexus 6
-#          avd-name: test
-#          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none
-#          disable-animations: true
 #          script: ./gradlew connectedCheck
 
 #      - name: SonarQube Analysis
