@@ -41,8 +41,8 @@ jobs:
   ci-job-generate-apk:
     runs-on: ubuntu-latest
     steps:
-        - name: Checkout the code
-          uses: actions/checkout@v2
+      - name: Checkout the code
+        uses: actions/checkout@v2
 
       - name: Create APK
         run: ./gradlew assembleDebug
