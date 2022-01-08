@@ -10,27 +10,44 @@ on: #[pull_request, push]
       - 'feature/*' # matches every branch that begins with 'feature/'
 jobs:
   android-ci-job:
-    runs-on: ubuntu-latest # macos is needed for instrumentation tests
+    runs-on: macos-latest # ubuntu-latest # macos is needed for instrumentation tests
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
 
-      - name: Build the app
-        run: ./gradlew buildDebug
+      - name: Lint
+        run: ./gradlew lintDebug
 
       - name: Unit tests
-        run: ./gradlew testDebug
+        run: ./gradlew testDebugUnitTest
+
+      - name: Instrumentation tests
+        uses: reactivecircus/android-emulator-runner@v2 # https://github.com/ReactiveCircus/android-emulator-runner
+        with:
+          api-level: 31
+          target: google_apis
+          script: ./gradlew jacocoTestReport
+
+#      - name: Upload Reports
+#        uses: actions/upload-artifact@v1
+#        with:
+#          name: reports
+#          path: app/build/reports
+#
+#      - name: Create APK
+#        run: ./gradlew assembleDebug
+#
+#      - name: Upload APK
+#        uses: actions/upload-artifact@v1
+#        with:
+#          name: myapk
+#          path: app/build/outputs/apk/debug/app-debug.apk
 
 #      - name: Instrumentation tests
 #        id: instrumentationTests
 #        run: ./gradlew connectedDebugAndroidTest
 
-#      - name: Instrumentation tests
-#        uses: reactivecircus/android-emulator-runner@v2 # https://github.com/ReactiveCircus/android-emulator-runner
-#        with:
-#          api-level: 31
-#          target: google_apis
-#          script: ./gradlew connectedCheck
+
 
 #      - name: SonarQube Analysis
 #        run: ./gradlew jacocoTestReport

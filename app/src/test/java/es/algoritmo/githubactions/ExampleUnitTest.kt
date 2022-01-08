@@ -16,6 +16,6 @@ class ExampleUnitTest {
     }
     @Test
     fun dummyTest() {
-        assertEquals(4, 2 + 2)
+        assertEquals(6, 3 + 3)
     }
 }

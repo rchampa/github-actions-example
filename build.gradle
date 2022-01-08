@@ -40,3 +40,10 @@ task incrementVersionCode {
         println("New Version: $newVersionCode")
     }
 }
+
+buildscript {
+    dependencies {
+        // Documentation https://www.jacoco.org/jacoco/trunk/doc/ant.html
+        classpath "org.jacoco:org.jacoco.core:0.8.7"
+    }
+}
