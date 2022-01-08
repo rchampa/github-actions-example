@@ -9,8 +9,8 @@ on: #[pull_request, push]
       - 'develop'   # matches develop
       - 'feature/*' # matches every branch that begins with 'feature/'
 jobs:
-  android-ci-job:
-    runs-on: macos-latest # ubuntu-latest # macos is needed for instrumentation tests
+  ci-job-build-and-test:
+    runs-on: macos-latest
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
@@ -29,27 +29,30 @@ jobs:
       - name: Instrumentation tests
         uses: reactivecircus/android-emulator-runner@v2 # https://github.com/ReactiveCircus/android-emulator-runner
         with:
-          api-level: 29
+          api-level: 30
           script: ./gradlew jacocoTestReport
 
-#      - name: Upload Reports
-#        uses: actions/upload-artifact@v1
-#        with:
-#          name: reports
-#          path: app/build/reports
-#
-#      - name: Create APK
-#        run: ./gradlew assembleDebug
-#
-#      - name: Upload APK
-#        uses: actions/upload-artifact@v1
-#        with:
-#          name: myapk
-#          path: app/build/outputs/apk/debug/app-debug.apk
+      - name: Upload Reports
+        uses: actions/upload-artifact@v1
+        with:
+          name: reports
+          path: app/build/reports
 
-#      - name: Instrumentation tests
-#        id: instrumentationTests
-#        run: ./gradlew connectedDebugAndroidTest
+  ci-job-generate-apk:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout the code
+          uses: actions/checkout@v2
+
+      - name: Create APK
+        run: ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v1
+        with:
+          name: myapk
+          path: app/build/outputs/apk/debug/app-debug.apk
+
 
 
 
